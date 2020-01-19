@@ -9350,7 +9350,7 @@ var _cartJson = {"total":0,"adjustedDiscountItems":[],"items":[],"shippingTotal"
 		  <span id="colswatchdiv" class="color-label" style="display:none">          <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>      <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom_1-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>      <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom_2-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>      <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom_3-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>      <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom_4-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>      <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom_5-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>      <span class="swatchColour" data-url="/images/products/T7RTFN8A711_zoom_6-air-series-700-tent.jpg?v=080320e6d4e54f46a5d0">Chilli Red/Grey</span>                  </span> 
 	</div>
 
-	<div class="ar-row" onclick="startAR">
+	<div class="ar-row" onclick="startAR()">
 		<img src="./view_In_AR.png" id='buttonAR' class="ar-button u-visible-mobile visible-mobile" style="display: none; width: 150px !important;opacity: 1; position: absolute; right: 0px; top: 306px; z-index: 999;"/>
 		<img src="./view_In_3D.png" id='button3D' class="ar-button hidden-mobile" style="width: 150px !important;opacity: 1;position: absolute;z-index: 999;right: 0px; bottom: 1px"/>
 				
@@ -9402,20 +9402,6 @@ var _cartJson = {"total":0,"adjustedDiscountItems":[],"items":[],"shippingTotal"
 
 <script type="text/javascript">
 
-$(document).ready(function() {
-	$(".ar-row").click(function() {
-		$("#plattar-69c890cd1c36").show();
-	});
-});
-
-$('#button3D, #buttonAR').click(function () {
-   if (this.id == 'button3D') {
-      alert('buttonAR clicked');
-   }
-   else if (this.id == 'buttonAR') {
-      alert('button3D clicked');
-   }
-});
 
   function PlattarIntegration() {
       var a, l;
@@ -9519,6 +9505,21 @@ $('#button3D, #buttonAR').click(function () {
       openPopup();
     }
   }
+
+  $(document).ready(function() {
+	$(".ar-button").click(function() {
+		$(".plattar-frame").show();
+	});
+});
+
+$('#button3D, #buttonAR').click(function () {
+   if (this.id == 'button3D') {
+      alert('button3D clicked');
+   }
+   else if (this.id == 'buttonAR') {
+      alert('buttonAR clicked');
+   }
+});
 </script>
 	
   <!-- Scrolling image Gallery -->
