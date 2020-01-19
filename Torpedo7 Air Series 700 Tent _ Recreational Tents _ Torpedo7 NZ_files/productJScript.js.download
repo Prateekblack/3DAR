@@ -1,0 +1,199 @@
+
+var gallery_restarea = 50;
+var gallery_restareaVerticle = 100;
+var gallery_maxspeed = 3;
+var gallery_maxwidth = 320;
+var gallery_startpos = 0;
+var gallery_endofgallerymsg = "";
+var gallery_iedom = document.all || document.getElementById,
+    gallery_scrollspeed = 0,
+    gallery_movestate = "",
+    gallery_actualwidth = "",
+    gallery_cross_scroll, gallery_verticle_scroll, gallery_ns_scroll, gallery_statusdiv, gallery_loadedyes = 0,
+    gallery_lefttime, gallery_righttime, gallery_crossmain;
+
+function gallery_ietruebody() {
+    return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body }
+
+function gallery_showhidediv(A) {}
+
+function gallery_getposOffset(D, B) {
+    var A = (B == "left") ? D.offsetLeft : D.offsetTop;
+    var C = D.offsetParent;
+    while (C != null) { A = (B == "left") ? A + C.offsetLeft : A + C.offsetTop;
+        C = C.offsetParent }
+    return A }
+
+function gallery_moveleft() {
+    if (gallery_loadedyes) { gallery_movestate = "left";
+        if (gallery_iedom && parseInt(gallery_cross_scroll.style.left) > (gallery_menuwidth - gallery_actualwidth)) { gallery_cross_scroll.style.left = parseInt(gallery_cross_scroll.style.left) - gallery_scrollspeed + "px";
+            gallery_showhidediv("hidden") } else { gallery_showhidediv("visible") } }
+    gallery_lefttime = setTimeout("gallery_moveleft()", 10) }
+
+function gallery_moveright() {
+    if (gallery_loadedyes) { gallery_movestate = "right";
+        if (gallery_iedom && parseInt(gallery_cross_scroll.style.left) < 0) { gallery_cross_scroll.style.left = parseInt(gallery_cross_scroll.style.left) + gallery_scrollspeed + "px";
+            gallery_showhidediv("hidden") } else { gallery_showhidediv("visible") } }
+    gallery_righttime = setTimeout("gallery_moveright()", 10) }
+
+function gallery_motionengine(F) {
+    var D = gallery_getposOffset(gallery_crossmain, "left"),
+        E = (window.pageXOffset) ? pageXOffset : gallery_ietruebody().scrollLeft,
+        C = (window.pageYOffset) ? pageYOffset : gallery_ietruebody().scrollTop,
+        B = window.event ? event.clientX : F.clientX ? F.clientX : "";
+    B -= D - E;
+    var A = (gallery_menuwidth - gallery_restarea) / 2;
+    var G = (gallery_menuwidth + gallery_restarea) / 2;
+    if (B > G) { gallery_scrollspeed = (B - G) / ((gallery_menuwidth - gallery_restarea) / 2) * gallery_maxspeed;
+        clearTimeout(gallery_righttime);
+        if (gallery_movestate != "left") { gallery_moveleft() } } else {
+        if (B < A) { gallery_scrollspeed = (A - B) / ((gallery_menuwidth - gallery_restarea) / 2) * gallery_maxspeed;
+            clearTimeout(gallery_lefttime);
+            if (gallery_movestate != "right") { gallery_moveright() } } else { gallery_scrollspeed = 0 } } }
+
+function gallery_contains_ns6(B, A) {
+    if (A !== null) {
+        while (A.parentNode) {
+            if ((A = A.parentNode) == B) {
+                return true } } }
+    return false }
+
+function gallery_stopmotion(A) {
+    if (!window.opera || (window.opera && A.relatedTarget !== null)) {
+        if ((window.event && !gallery_crossmain.contains(event.toElement)) || (A && A.currentTarget && A.currentTarget != A.relatedTarget && !gallery_contains_ns6(A.currentTarget, A.relatedTarget))) { clearTimeout(gallery_lefttime);
+            clearTimeout(gallery_righttime);
+            gallery_movestate = "" } } }
+
+function gallery_stopmotionVerticle(A) {
+    if ((window.event && !gallery_verticlemain.contains(event.toElement)) || (A && A.currentTarget && A.currentTarget != A.relatedTarget && !gallery_contains_ns6(A.currentTarget, A.relatedTarget))) {
+        if (window.downtime) { clearTimeout(gallery_downtime) }
+        if (window.uptime) { clearTimeout(gallery_uptime) }
+        gallery_movestate = "" } }
+
+function gallery_fillup() {
+    if (gallery_iedom) { gallery_crossmain = document.getElementById ? document.getElementById("prodcontainer") : document.all.motioncontainer;
+        if (typeof gallery_crossmain.style.maxWidth !== "undefined") { gallery_crossmain.style.maxWidth = gallery_maxwidth + "px" }
+        gallery_menuwidth = gallery_crossmain.offsetWidth;
+        gallery_cross_scroll = document.getElementById ? document.getElementById("prodgallery") : document.all.motiongallery;
+        var offsetvalue = 0;
+        if (document.getElementById("trueContainer")) { offsetvalue = document.getElementById("trueContainer").offsetWidth; }
+        gallery_actualwidth = offsetvalue;
+        if (gallery_startpos) { gallery_cross_scroll.style.left = (gallery_menuwidth - gallery_actualwidth) / gallery_startpos + "px" }
+        gallery_crossmain.onmousemove = function(A) { gallery_motionengine(A) };
+        gallery_crossmain.onmouseout = function(A) { gallery_stopmotion(A) } }
+    gallery_loadedyes = 1 }
+gallery_onresize = function() {
+    if (typeof gallery_motioncontainer !== "undefined" && gallery_motioncontainer.filters) { gallery_motioncontainer.style.width = "0";
+        gallery_motioncontainer.style.width = "";
+        gallery_motioncontainer.style.width = Math.min(gallery_motioncontainer.offsetWidth, gallery_maxwidth) + "px" }
+    gallery_menuwidth = gallery_crossmain.offsetWidth;
+    gallery_cross_scroll.style.left = gallery_startpos ? (gallery_menuwidth - gallery_actualwidth) / gallery_startpos + "px" : 0 };
+
+function loadMotionProductGallery() { setTimeout("gallery_fillup()", 5000) }
+var restarea = 200;
+var restareaVerticle = 100;
+var maxspeed = 7;
+var maxwidth = 1000;
+var startpos = 0;
+var endofgallerymsg = "";
+var iedom = document.all || document.getElementById,
+    scrollspeed = 0,
+    movestate = "",
+    actualwidth = "",
+    cross_scroll, verticle_scroll, ns_scroll, statusdiv, loadedyes = 0,
+    lefttime, righttime;
+
+function ietruebody() {
+    return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body }
+
+function showhidediv(A) {}
+
+function getposOffset(D, C) {
+    var B = (C == "left") ? D.offsetLeft : D.offsetTop;
+    var A = D.offsetParent;
+    while (A != null) { B = (C == "left") ? B + A.offsetLeft : B + A.offsetTop;
+        A = A.offsetParent }
+    return B }
+
+function moveleft() {
+    if (loadedyes) { movestate = "left";
+        if (iedom && parseInt(cross_scroll.style.left) > (menuwidth - actualwidth)) { cross_scroll.style.left = parseInt(cross_scroll.style.left) - scrollspeed + "px";
+            showhidediv("hidden") } else { showhidediv("visible") } }
+    lefttime = setTimeout("moveleft()", 10) }
+
+function moveright() {
+    if (loadedyes) { movestate = "right";
+        if (iedom && parseInt(cross_scroll.style.left) < 0) { cross_scroll.style.left = parseInt(cross_scroll.style.left) + scrollspeed + "px";
+            showhidediv("hidden") } else { showhidediv("visible") } }
+    righttime = setTimeout("moveright()", 10) }
+
+function moveup() {
+    if (loadedyes) { movestate = "up";
+        if (iedom && parseInt(verticle_scroll.style.top) > (menu_height - actualheight)) { verticle_scroll.style.top = parseInt(verticle_scroll.style.top) - scrollspeed + "px" } else { showhidediv("visible") } }
+    uptime = setTimeout("moveup()", 20) }
+
+function movedown() {
+    if (loadedyes) { movestate = "down";
+        if (iedom && parseInt(verticle_scroll.style.top) < 0) { verticle_scroll.style.top = parseInt(verticle_scroll.style.top) + scrollspeed + "px" } else { showhidediv("visible") } }
+    downtime = setTimeout("movedown()", 20) }
+
+function motionengine(F) {
+    var E = getposOffset(crossmain, "left"),
+        G = (window.pageXOffset) ? pageXOffset : ietruebody().scrollLeft,
+        D = (window.pageYOffset) ? pageYOffset : ietruebody().scrollTop,
+        B = window.event ? event.clientX : F.clientX ? F.clientX : "";
+    B -= E - G;
+    var A = (menuwidth - restarea) / 2;
+    var C = (menuwidth + restarea) / 2;
+    if (B > C) { scrollspeed = (B - C) / ((menuwidth - restarea) / 2) * maxspeed;
+        clearTimeout(righttime);
+        if (movestate != "left") { moveleft() } } else {
+        if (B < A) { scrollspeed = (A - B) / ((menuwidth - restarea) / 2) * maxspeed;
+            clearTimeout(lefttime);
+            if (movestate != "right") { moveright() } } else { scrollspeed = 0 } } }
+
+function motionengineVerticle(F) {
+    var E = getposOffset(verticlemain, "top");
+    var G = (window.pageXOffset) ? pageXOffset : ietruebody().scrollLeft;
+    var D = (window.pageYOffset) ? pageYOffset : ietruebody().scrollTop;
+    var B = window.event ? event.clientY : F.clientY ? F.clientY : "";
+    B -= E - D;
+    var A = (menu_height - restareaVerticle) / 2;
+    var C = (menu_height + restareaVerticle) / 2;
+    if (B > C) { scrollspeed = (B - C) / ((menu_height - restareaVerticle) / 2) * maxspeed;
+        if (window.downtime) { clearTimeout(downtime) }
+        if (movestate != "up") { moveup() } } else {
+        if (B < A) { scrollspeed = (A - B) / ((menu_height - restareaVerticle) / 2) * maxspeed;
+            if (window.uptime) { clearTimeout(uptime) }
+            if (movestate != "down") { movedown() } } else { scrollspeed = 0 } } }
+
+function contains_ns6(B, A) {
+    if (A !== null) {
+        while (A.parentNode) {
+            if ((A = A.parentNode) == B) {
+                return true } } }
+    return false }
+
+function stopmotion(A) {
+    if (!window.opera || (window.opera && A.relatedTarget !== null)) {
+        if ((window.event && !crossmain.contains(event.toElement)) || (A && A.currentTarget && A.currentTarget != A.relatedTarget && !contains_ns6(A.currentTarget, A.relatedTarget))) { clearTimeout(lefttime);
+            clearTimeout(righttime);
+            movestate = "" } } }
+
+function stopmotionVerticle(A) {
+    if ((window.event && !verticlemain.contains(event.toElement)) || (A && A.currentTarget && A.currentTarget != A.relatedTarget && !contains_ns6(A.currentTarget, A.relatedTarget))) {
+        if (window.downtime) { clearTimeout(downtime) }
+        if (window.uptime) { clearTimeout(uptime) }
+        movestate = "" } }
+
+function fillup() {
+    if (iedom) { verticlemain = document.getElementById ? document.getElementById("motioncontainerVerticle") : document.all.motioncontainerVerticle;
+        if (verticlemain != null) { menu_height = parseInt(verticlemain.style.height);
+            verticle_scroll = document.getElementById ? document.getElementById("motiongalleryVerticle") : document.all.motiongalleryVerticle;
+            actualheight = verticle_scroll.offsetHeight;
+            verticlemain.onmousemove = function(A) { motionengineVerticle(A) };
+            verticlemain.onmouseout = function(A) { stopmotionVerticle(A) } } }
+    if (window.opera) { verticle_scroll.style.top = menu_height - actualheight + "px";
+        setTimeout("verticle_scroll.style.top=0", 10) }
+    loadedyes = 1 }
+window.onload = fillup;
