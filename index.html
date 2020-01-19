@@ -9408,6 +9408,15 @@ $(document).ready(function() {
 	});
 });
 
+$('#button3D, #buttonAR').click(function () {
+   if (this.id == 'button3D') {
+      alert('buttonAR clicked');
+   }
+   else if (this.id == 'buttonAR') {
+      alert('button3D clicked');
+   }
+});
+
   function PlattarIntegration() {
       var a, l;
       this.popupUrl = "", self = this;
