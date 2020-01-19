@@ -9419,7 +9419,7 @@ var _cartJson = {"total":0,"adjustedDiscountItems":[],"items":[],"shippingTotal"
                       i = e.included.find(function(t) {
                           return t.id === n.attributes.file_id
                       });
-                  l = "https://cdn.plattar.com/" + i.attributes.path + i.attributes.filename, a = "https://cdn.plattar.com/" + i.attributes.path + "model-conv.usdz", self.popupUrl = "https://app.plattar.com/webgleditor/preview/index.html?sceneId=9e472d40-d130-11e9-8895-9f7fd2d7f030&productId=9e463cf0-d130-11e9-bb86-9b614be145b2&variationId=9e48fda0-d130-11e9-b350-69c890cd1c36" 
+                  l = "https://cdn.plattar.com/" + i.attributes.path + i.attributes.filename, a = "https://cdn.plattar.com/" + i.attributes.path + "model-conv.usdz", self.popupUrl = "https://app.plattar.com/webgleditor/preview/modelviewer.html?fileid=" + i.id
               }
           }, o.onerror = function(t) {
               throw t
@@ -9442,7 +9442,7 @@ var _cartJson = {"total":0,"adjustedDiscountItems":[],"items":[],"shippingTotal"
 </script>
 <script type="text/javascript">
   var integration = new PlattarIntegration();
-  integration.init('9e472d40-d130-11e9-8895-9f7fd2d7f030&', 'a4282db0-b7f8-11e9-aa78-597990917d3f');
+  integration.init('a4257cc0-b7f8-11e9-a7b2-3b6d222630bd', 'a4282db0-b7f8-11e9-aa78-597990917d3f');
 
   if (integration.canAugment) {
     //show ar
@@ -9512,14 +9512,14 @@ var _cartJson = {"total":0,"adjustedDiscountItems":[],"items":[],"shippingTotal"
 	});
 });
 
-// $('#button3D, #buttonAR').click(function () {
-//    if (this.id == 'button3D') {
-//       alert('button3D clicked');
-//    }
-//    else if (this.id == 'buttonAR') {
-//       alert('buttonAR clicked');
-//    }
-// });
+$('#button3D, #buttonAR').click(function () {
+   if (this.id == 'button3D') {
+      alert('button3D clicked');
+   }
+   else if (this.id == 'buttonAR') {
+      alert('buttonAR clicked');
+   }
+});
 </script>
 	
   <!-- Scrolling image Gallery -->
